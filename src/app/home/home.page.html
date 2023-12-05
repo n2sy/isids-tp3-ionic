@@ -1,37 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title> Currency App </ion-title>
+    <ion-title> TP Currency </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
- <div class="bg-img ">
-  <h1>Aujourd'hui</h1>
-  <h5> {{ currentDate | date:'shortDate' }} </h5>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" offset="4">
+        <ion-img src="../../assets/logo.png"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-  <ion-card *ngFor="let task of allTasks">
-    <ion-item-sliding>
-    <ion-item >
-      <ion-checkbox></ion-checkbox>
-      <ion-label>
-        <p>{{ task.text }}</p>
-        <p>{{ task.date | date:'shortTime' }}</p>
-      </ion-label>
-    </ion-item>
-    <ion-item-options>
-      <ion-item-option (click)="presentAlert(task.id)" color="danger">Delete</ion-item-option>
-    </ion-item-options>
-  </ion-item-sliding>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Edit Currencies</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="fixed">Currency 1</ion-label>
+        <ion-select disabled value="USD">
+          <ion-select-option value="USD">USD</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label position="fixed">Currency 2</ion-label>
+        <ion-select #c2>
+          <ion-select-option *ngFor="let c of allCurrencies" [value]="c"
+            >{{ c }} </ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+
+      <ion-button color="success" expand="block" (click)="onConvert(c2)"
+        >Convert</ion-button
+      >
+    </ion-card-content>
   </ion-card>
-
- 
-
-  <ion-item *ngIf="!showAddButton">
-    <ion-input #i></ion-input>
-    <ion-button (click)="addNewTask(i.value)" color="primary" shape="round">+</ion-button>
-  </ion-item>
-  <ion-button (click)="toggleShowAddButton()" *ngIf="!showAddButton" expand="block" color="secondary">Annuler</ion-button>
-  <ion-button (click)="toggleShowAddButton()" *ngIf="showAddButton" expand="block" color="primary">Ajouter une tâche</ion-button>
-
- </div>
 </ion-content>
