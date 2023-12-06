@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ExchangeService } from '../exchange.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +9,10 @@ import { ExchangeService } from '../exchange.service';
 export class HomePage {
   allCurrencies = [];
 
-  constructor(private exchange: ExchangeService) {}
+  constructor(private http : HttpClient) {}
 
   ngOnInit() {
-    this.exchange.getAllValues().subscribe({
+      this.http.get('http://apilayer.net/api/live?access_key=cc0c69355ca060873ff4989dad8629f0').subscribe({
       next: (data) => {
         //console.log(Object.keys(data['quotes']));
         for (const curr in data['quotes']) {
